@@ -8,7 +8,14 @@ router.get('/login',(req , res) => {
 
 router.get('/register',(req , res) => {
     res.render('user/register')
+});
+
+router.post('/register',(req , res ) => {
+    console.log('======================')
+    console.log(req.body);
+    res.json(req.body)
 })
+
 
 
 

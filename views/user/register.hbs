@@ -4,92 +4,108 @@
 
   <!-- sign Up form section start-->
   <div class="form sign_up">
-    <form  method="post" action="/register" onsubmit="return formValidate()">
-      <!-- heading -->
+    <form method="post" action="/user/register" id="registerForm">
       <h1>Create An Account</h1>
-      <!-- social media icons -->
+
       <div class="social-container">
-        {{! add the logo here }}
+        {{! add logo here }}
       </div>
-      <span>use email for registration</span>
-      <!-- input fields start -->
-      <input type="text" id="name" placeholder="User Name" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <input type="password" id="cpassword" placeholder="Confirm Password" />
+
+      <span>Use email for registration</span>
+
+      <input type="text" name="name" id="name" placeholder="User Name" />
+      <input type="email" name="email" id="email" placeholder="Email" />
+      <input type="password" name="password" id="password" placeholder="Password" />
+      <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+
       <button type="submit">Create Account</button>
-      <!-- input fields end -->
     </form>
   </div>
   <!-- sign Up form section end-->
 
+
   <!-- sign in form section start-->
   <div class="form sign_in">
-    <form action="#">
-      <!-- heading -->
+    <form id="loginForm">
       <h1>Login In</h1>
-      <!-- social media icons -->
+
       <div class="social-container">
-        {{! add the logo here }}
+        {{! add logo here }}
       </div>
-      <span>Login In with your Account</span>
-      <!-- input fields start -->
+
+      <span>Login with your account</span>
+
       <input type="email" placeholder="Email" />
       <input type="password" placeholder="Password" />
+
       <button>Login</button>
-      <!-- input fields end -->
     </form>
   </div>
   <!-- sign in form section end-->
 
-  <!-- overlay section start-->
+
+  <!-- overlay section start -->
   <div class="overlay-container">
     <div class="overlay">
+
       <div class="overlay-pannel overlay-left">
-        <h1>Already have an account</h1>
-        <p>Please Login</p>
-        <button id="signIn" class="overBtn">SignIn</button>
+        <h1>Already have an account?</h1>
+        <p>Please login</p>
+        <button id="signIn" class="overBtn">Sign In</button>
       </div>
+
       <div class="overlay-pannel overlay-right">
         <h1>Create Account</h1>
-        <p>Start Your Journey with Us</p>
+        <p>Start your journey with us</p>
         <button id="signUp" class="overBtn">Sign Up</button>
       </div>
+
     </div>
   </div>
-  <!-- overlay section start-->
+  <!-- overlay section end -->
 </div>
+
+
 <script>
-  const signUpBUtton = document.getElementById("signUp"); const signInBUtton =
-  document.getElementById("signIn"); const container =
-  document.getElementById("container"); // switch between login and signup
-  signUpBUtton.addEventListener("click", () => {
-  container.classList.add("right-panel-active"); });
-  signInBUtton.addEventListener("click", () => [
-  container.classList.remove("right-panel-active") ]);
+  const signUpButton = document.getElementById("signUp");
+  const signInButton = document.getElementById("signIn");
+  const container = document.getElementById("container");
 
-{{!-- validation --}}
+  // switch UI
+  signUpButton.addEventListener("click", () => {
+    container.classList.add("right-panel-active");
+  });
 
-document.addEventListener('DOMContentLoaded',function(){
-  document.querySelector('form').addEventListener('submit',formValidate);
-  })
+  signInButton.addEventListener("click", () => {
+    container.classList.remove("right-panel-active");
+  });
 
-  function formValidate(e){
-    e.preventDefault();
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    var confirmPassword = document.getElementById('cpassword').value;
-    if(email === ''|| password === ''||confirmPassword ===''){
-        Swal.fire("All fields are required");
+  // Validation
+  document.addEventListener("DOMContentLoaded", function () {
+    const registerForm = document.getElementById("registerForm");
 
-        return false;
-    }else if(password != confirmPassword){
-      Swal.fire("Password do not match");
+    registerForm.addEventListener("submit", function (e) {
+      if (!formValidate()) {
+        e.preventDefault(); // stop form only if validation fails
+      }
+    });
+  });
+
+  function formValidate() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("cpassword").value.trim();
+
+    if (!email || !password || !confirmPassword) {
+      Swal.fire("All fields are required");
       return false;
     }
-    return true;
 
+    if (password !== confirmPassword) {
+      Swal.fire("Passwords do not match");
+      return false;
+    }
+
+    return true; // allow form submission
   }
-
-
 </script>
