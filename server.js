@@ -6,9 +6,13 @@ const express = require('express');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
 const path = require("path");
+const connectDB = require("./db/connectDB");
 
 // app initialize
 const app = express();
+
+
+
 
 // view engine configurations
 app.set('views',path.join(__dirname,'views'));
@@ -24,6 +28,9 @@ app.use('/admin',adminRouter);
 app.get('/', (req, res) => {
   res.json({ message: 'Express server is running' });
 });
+
+// MongoDB
+connectDB();
 
 // Start server
 const PORT = process.env.PORT || 3002;
